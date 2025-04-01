@@ -216,14 +216,8 @@ export default function ThemeEditor() {
 }
 
 function ThemeSection({ children, layout }) {
-  return layout === 'horizontal' ? (
-    <Form layout="horizontal">
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-        {children}
-      </div>
-    </Form>
-  ) : (
-    <Form layout="vertical">
+  return (
+    <Form layout={layout}>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
         {children}
       </div>
