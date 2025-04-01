@@ -70,18 +70,24 @@ class CustomAuthDBView(AuthDBView):
                 flash('Ocorreu um erro ao realizar o login automático!', 'warning')
             
         return super().login()
-
 class CustomSecurityManager(SupersetSecurityManager):
     authdbview = CustomAuthDBView
 
 CUSTOM_SECURITY_MANAGER = CustomSecurityManager
 
+LANGUAGES = {
+    "pt_BR": {"flag": "br", "name": "Brazilian Portuguese"},
+}
+BABEL_DEFAULT_LOCALE = "pt_BR"
 AUTH_TYPE = AUTH_DB
+
+APP_NAME = "Dusys - Superset"
+APP_ICON="https://i.postimg.cc/9FHY1cCW/slym.png"
 
 logger = logging.getLogger()
 
 AUTH_USER_REGISTRATION = True  # Permite criação automática de usuários
-AUTH_USER_REGISTRATION_ROLE = "CompanyUser" 
+AUTH_USER_REGISTRATION_ROLE = "EmpresaCriador" 
 
 DATABASE_DIALECT = os.getenv("DATABASE_DIALECT")
 DATABASE_USER = os.getenv("DATABASE_USER")
