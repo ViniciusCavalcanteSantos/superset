@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Modal,
   Tooltip,
@@ -39,18 +39,15 @@ import { mergeWith } from 'lodash';
 const { Title } = Typography;
 const { Panel } = Collapse;
 
-// Manually curated list of seed tokens (excluding animation-related ones)
-const seedTokenCategories: Record<
-  string,
-  { token: string; type: 'color' | 'number' | 'string' }[]
-> = {
+const seedTokenCategories = {
   Colors: [
+    { token: 'colorBgBase', type: 'color' },
     { token: 'colorPrimary', type: 'color' },
     { token: 'colorSuccess', type: 'color' },
     { token: 'colorWarning', type: 'color' },
     { token: 'colorError', type: 'color' },
     { token: 'colorInfo', type: 'color' },
-    { token: 'colorBgBase', type: 'color' },
+    { token: 'colorLink', type: 'color' },
   ],
   Typography: [
     { token: 'fontFamily', type: 'string' },
@@ -69,37 +66,64 @@ const seedTokenCategories: Record<
 };
 
 export default function ThemeEditor() {
-  const initialTheme = themeObject.toSerializedConfig();
-  const filteredKeys = Object.values(seedTokenCategories)
-    .flat()
-    .map(entry => entry.token);
-  const initialTokens = filteredKeys.reduce(
-    (acc, key) => {
+  const [tokens, setTokens] = useState({});
+  const [jsonOverrides, setJsonOverrides] = useState('{}');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+  const [isCompact, setIsCompact] = useState(false);
+
+  useEffect(() => {
+    if (!isModalOpen) return;
+
+    const initialTheme = themeObject.toSerializedConfig();
+    const { algorithm } = initialTheme;
+
+    const filteredKeys = Object.values(seedTokenCategories)
+      .flat()
+      .map(entry => entry.token);
+
+    const initialTokens = filteredKeys.reduce((acc, key) => {
       acc[key] = themeObject.theme[key];
       return acc;
-    },
-    {} as Record<string, any>,
-  );
+    }, {});
 
-  const { algorithm } = initialTheme;
-  const [tokens, setTokens] = useState<Record<string, any>>(initialTokens);
-  const [jsonOverrides, setJsonOverrides] = useState<string>('{}');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDark, setIsDark] = useState(algorithm?.includes('dark'));
-  const [isCompact, setIsCompact] = useState(algorithm?.includes('compact'));
+    setTokens(initialTokens);
+    setIsDark(algorithm?.includes('dark'));
+    setIsCompact(algorithm?.includes('compact'));
+  }, [isModalOpen]);
+
+  const setToken = (key, value) => {
+    setTokens(prev => ({ ...prev, [key]: value }));
+  };
+
+  const updateColorBgBase = dark => {
+    setToken('colorBgBase', dark ? '#141414' : '#ffffff');
+  };
 
   const getMergedTheme = () => {
+    let overrides = {};
     try {
-      const overrides = JSON.parse(jsonOverrides);
-      const merged = mergeWith({}, tokens, overrides);
-      merged.algorithm = [
-        isDark ? 'dark' : 'default',
-        ...(isCompact ? ['compact'] : []),
-      ];
-      return merged;
+      overrides = JSON.parse(jsonOverrides);
     } catch (e) {
-      return tokens;
+      console.log('Invalid JSON in overrides:', e);
     }
+    const algorithm = [
+      isDark ? 'dark' : 'default',
+      ...(isCompact ? ['compact'] : []),
+    ];
+    return {
+      tokens: { ...tokens, ...overrides },
+      algorithm,
+    };
+  };
+
+  const applyTheme = () => {
+    try {
+      themeObject.setConfig(getMergedTheme());
+    } catch (e) {
+      console.error('Failed to apply theme overrides:', e);
+    }
+    setIsModalOpen(false);
   };
 
   return (
@@ -117,7 +141,7 @@ export default function ThemeEditor() {
         title={t('Theme Editor')}
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
-        onOk={() => setIsModalOpen(false)}
+        onOk={applyTheme}
         width={800}
         centered
       >
@@ -127,7 +151,10 @@ export default function ThemeEditor() {
               <Form.Item label={t('Dark Mode')}>
                 <Switch
                   checked={isDark}
-                  onChange={setIsDark}
+                  onChange={val => {
+                    setIsDark(val);
+                    updateColorBgBase(val);
+                  }}
                   checkedChildren={t('Dark')}
                   unCheckedChildren={t('Light')}
                 />
@@ -152,7 +179,7 @@ export default function ThemeEditor() {
                     token={token}
                     type={type}
                     tokens={tokens}
-                    setTokens={setTokens}
+                    setToken={setToken}
                   />
                 ))}
               </ThemeSection>
@@ -186,13 +213,8 @@ export default function ThemeEditor() {
     </>
   );
 }
-function ThemeSection({
-  children,
-  layout,
-}: {
-  children: React.ReactNode;
-  layout?: 'horizontal' | 'default';
-}) {
+
+function ThemeSection({ children, layout }) {
   return layout === 'horizontal' ? (
     <Form layout="horizontal">
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
@@ -207,37 +229,29 @@ function ThemeSection({
     </Form>
   );
 }
+function ThemeToken({ token, type, tokens, setToken }) {
+  const value = tokens[token];
 
-function ThemeToken({
-  token,
-  type,
-  tokens,
-  setTokens,
-}: {
-  token: string;
-  type: 'color' | 'number' | 'string';
-  tokens: Record<string, any>;
-  setTokens: React.Dispatch<React.SetStateAction<Record<string, any>>>;
-}) {
-  const initialValue = tokens[token];
-  const [value, setValue] = useState(initialValue);
-
-  const handleChange = (val: any) => {
+  const handleChange = val => {
     const normalized =
       type === 'number'
         ? typeof val === 'number' && !Number.isNaN(val)
           ? val
           : null
         : val;
-    setValue(normalized);
-    setTokens(prev => ({ ...prev, [token]: normalized }));
+    setToken(token, normalized);
   };
 
   const renderInput = () => {
+    const commonProps = {
+      id: `token-input-${token}`,
+    };
+
     switch (type) {
       case 'color':
         return (
           <ColorPicker
+            {...commonProps}
             value={value}
             onChange={(_, hex) => handleChange(hex)}
             format="hex"
@@ -246,6 +260,7 @@ function ThemeToken({
       case 'number':
         return (
           <InputNumber
+            {...commonProps}
             style={{ width: '100%' }}
             value={value}
             onChange={handleChange}
@@ -254,7 +269,11 @@ function ThemeToken({
       case 'string':
       default:
         return (
-          <Input value={value} onChange={e => handleChange(e.target.value)} />
+          <Input
+            {...commonProps}
+            value={value}
+            onChange={e => handleChange(e.target.value)}
+          />
         );
     }
   };
@@ -267,10 +286,8 @@ function ThemeToken({
       : 160;
 
   return (
-    <div style={{ width, marginBottom: 0 }}>
-      <label style={{ display: 'block', fontSize: 12, marginBottom: 4 }}>
-        {token}
-      </label>
+    <div style={{ width }}>
+      <div style={{ fontSize: 12, marginBottom: 4 }}>{token}</div>
       {renderInput()}
     </div>
   );
