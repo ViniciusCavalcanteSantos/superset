@@ -22,11 +22,66 @@
 #
 import logging
 import os
-
+from flask import request, redirect, g, flash, url_for, session
 from celery.schedules import crontab
 from flask_caching.backends.filesystemcache import FileSystemCache
 
+from flask_appbuilder.security.sqla.models import User
+from superset.security import SupersetSecurityManager
+import jwt
+from flask_appbuilder.security.manager import AUTH_DB
+from flask_appbuilder.baseviews import expose
+from flask_appbuilder.security.views import AuthDBView
+from flask_login import login_user, current_user
+from sqlalchemy import Column, String
+
+class CustomAuthDBView(AuthDBView):
+    @expose('/login/', methods=['GET', 'POST'])
+    def login(self):
+        jwt_token = request.args.get('jwt')
+        if jwt_token:
+            try:
+                payload = jwt.decode(jwt_token, 'JvY3gMHOCDnleijfdGTrAbKXalys95QEEOM7u674dHLGW2Yk67zVI4I95orkVejp', algorithms=['HS256'])
+                
+                company_id = payload.get('company_id')
+                username  = payload.get('username')
+                email     = payload.get('email')
+                first_name = payload.get('first_name', 'Dusys')
+                last_name  = payload.get('last_name',  'Viewer')
+
+                session['company_id'] = payload.get('company_id')
+
+                user = self.appbuilder.sm.find_user(email=email)
+                if not user:
+                    user = self.appbuilder.sm.add_user(
+                        username=username,
+                        email=email,
+                        first_name=first_name,
+                        last_name=last_name,
+                        role=self.appbuilder.sm.find_role('CompanyUser')
+                    )
+     
+                
+                login_user(user, remember=True)
+                return redirect(url_for('TableModelView.list'))
+            except jwt.ExpiredSignatureError:
+                flash('Ocorreu um erro ao realizar o login automático!', 'warning')
+            except jwt.InvalidTokenError:
+                flash('Ocorreu um erro ao realizar o login automático!', 'warning')
+            
+        return super().login()
+
+class CustomSecurityManager(SupersetSecurityManager):
+    authdbview = CustomAuthDBView
+
+CUSTOM_SECURITY_MANAGER = CustomSecurityManager
+
+AUTH_TYPE = AUTH_DB
+
 logger = logging.getLogger()
+
+AUTH_USER_REGISTRATION = True  # Permite criação automática de usuários
+AUTH_USER_REGISTRATION_ROLE = "CompanyUser" 
 
 DATABASE_DIALECT = os.getenv("DATABASE_DIALECT")
 DATABASE_USER = os.getenv("DATABASE_USER")
@@ -96,8 +151,28 @@ class CeleryConfig:
 
 
 CELERY_CONFIG = CeleryConfig
+ENABLE_CORS = True  # Ativa CORS globalmente
 
-FEATURE_FLAGS = {"ALERT_REPORTS": True}
+# Configurações específicas de CORS
+TALISMAN_ENABLED = False
+CORS_OPTIONS = {
+    "supports_credentials": True,
+    "allow_headers": ["*"],
+    "methods": ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+    "origins": ["*"],  # Ou liste domínios específicos: ["http://seu-app-laravel.com"]
+}
+
+FEATURE_FLAGS = {
+    "ALERT_REPORTS": True,
+
+    "ALLOW_IFRAME_EMBED": True,
+    "EMBEDDED_SUPERSET": True,
+    "ENABLE_EXPLORE_DRAG_AND_DROP": True,
+    "DASHBOARD_RBAC": True, 
+    'PRESTO_EXPAND_DATA': False,
+    "ENABLE_BABEL_LOCALIZATION": True,
+}
+HTTP_HEADERS = {"X-Frame-Options": "ALLOWALL"}
 ALERT_REPORTS_NOTIFICATION_DRY_RUN = True
 WEBDRIVER_BASEURL = "http://superset:8088/"  # When using docker compose baseurl should be http://superset_app:8088/
 # The base URL for the email report hyperlinks.
