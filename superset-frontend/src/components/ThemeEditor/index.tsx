@@ -97,7 +97,7 @@ export default function ThemeEditor() {
   };
 
   const updateColorBgBase = dark => {
-    setToken('colorBgBase', dark ? '#141414' : '#ffffff');
+    setToken('colorBgBase', dark ? '#000' : '#fff');
   };
 
   const getMergedTheme = () => {
@@ -105,21 +105,22 @@ export default function ThemeEditor() {
     try {
       overrides = JSON.parse(jsonOverrides);
     } catch (e) {
-      console.log('Invalid JSON in overrides:', e);
+      console.error('Invalid JSON in overrides:', e);
     }
     const algorithm = [
       isDark ? 'dark' : 'default',
       ...(isCompact ? ['compact'] : []),
     ];
     return {
-      tokens: { ...tokens, ...overrides },
+      token: { ...tokens, ...overrides },
       algorithm,
     };
   };
 
   const applyTheme = () => {
     try {
-      themeObject.setConfig(getMergedTheme());
+      const antdTheme = getMergedTheme();
+      themeObject.setConfig(antdTheme);
     } catch (e) {
       console.error('Failed to apply theme overrides:', e);
     }
@@ -254,7 +255,6 @@ function ThemeToken({ token, type, tokens, setToken }) {
             {...commonProps}
             value={value}
             onChange={(_, hex) => handleChange(hex)}
-            format="hex"
           />
         );
       case 'number':
