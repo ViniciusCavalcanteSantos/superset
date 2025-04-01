@@ -70,8 +70,29 @@ class CustomAuthDBView(AuthDBView):
                 flash('Ocorreu um erro ao realizar o login automático!', 'warning')
             
         return super().login()
+from collections import namedtuple
+FilterRow = namedtuple("FilterRow", ["id", "group_key", "clause"])
+
 class CustomSecurityManager(SupersetSecurityManager):
     authdbview = CustomAuthDBView
+
+    def get_rls_filters(self, table):
+        filters = super().get_rls_filters(table)
+        company_id = session.get("company_id")
+
+        if any(role.name == "CompanyUser" for role in self.get_user_roles(current_user)):
+            if company_id and current_user.is_authenticated:
+                new_filters = []
+                for filter_row in filters:
+                    filter_id = filter_row[0]
+                    group_key = filter_row[1]
+                    clause = filter_row[2]
+                    
+                    new_clause = clause.replace("{{ company_id }}", str(company_id))
+                    new_filters.append(FilterRow(filter_id, group_key, new_clause))
+                
+                return new_filters
+        return filters
 
 CUSTOM_SECURITY_MANAGER = CustomSecurityManager
 
