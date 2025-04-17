@@ -109,6 +109,8 @@ logger = logging.getLogger()
 
 AUTH_USER_REGISTRATION = True  # Permite criação automática de usuários
 AUTH_USER_REGISTRATION_ROLE = "EmpresaCriador" 
+SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SECURE = True
 
 DATABASE_DIALECT = os.getenv("DATABASE_DIALECT")
 DATABASE_USER = os.getenv("DATABASE_USER")
