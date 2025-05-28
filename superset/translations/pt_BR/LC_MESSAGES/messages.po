@@ -3992,9 +3992,8 @@ msgstr "Deck.gl - Gráfico de dispersão"
 msgid "Deck.gl - Screen Grid"
 msgstr "Deck.gl - Screen Grid"
 
-#, fuzzy
 msgid "Decrease"
-msgstr "criar"
+msgstr "Diminuir"
 
 #, fuzzy
 msgid "Default Catalog"
@@ -4159,16 +4158,14 @@ msgstr "Excluir consulta?"
 msgid "Delete Report?"
 msgstr "Excluir relatório?"
 
-#, fuzzy
 msgid "Delete Role?"
-msgstr "excluir"
+msgstr "Excluir cargo?"
 
 msgid "Delete Template?"
 msgstr "Excluir modelo?"
 
-#, fuzzy
 msgid "Delete User?"
-msgstr "Excluir consulta?"
+msgstr "Excluir usuário?"
 
 msgid "Delete all Really?"
 msgstr "Realmente excluir tudo?"
@@ -4188,9 +4185,8 @@ msgstr "Excluir relatório de e-mail"
 msgid "Delete query"
 msgstr "Excluir consulta"
 
-#, fuzzy
 msgid "Delete role"
-msgstr "excluir"
+msgstr "Excluir cargo"
 
 msgid "Delete template"
 msgstr "Excluir modelo"
@@ -4198,12 +4194,11 @@ msgstr "Excluir modelo"
 msgid "Delete this container and save to remove this message."
 msgstr "Excluir este contêiner e salvar para remover essa mensagem."
 
-#, fuzzy
 msgid "Delete user"
-msgstr "Excluir consulta"
+msgstr "Excluir usuário"
 
 msgid "Deleted"
-msgstr "excluído"
+msgstr "Excluído"
 
 #, python-format
 msgid "Deleted %(num)d annotation"
@@ -4259,31 +4254,30 @@ msgid_plural "Deleted %(num)d saved queries"
 msgstr[0] "%(num)d consulta salva excluída"
 msgstr[1] "%(num)d consultas salvas excluídas"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted %s"
 msgstr "Excluído: %s"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted role: %s"
-msgstr "Excluído: %s"
+msgstr "Cargo excluído: %s"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted roles: %s"
-msgstr "Excluído: %s"
+msgstr "Cargos excluídos: %s"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted user: %s"
-msgstr "Excluído: %s"
+msgstr "Usuário excluído: %s"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted users: %s"
-msgstr "Excluído: %s"
+msgstr "Usuários excluídos: %s"
 
 #, python-format
 msgid "Deleted: %s"
 msgstr "Excluído: %s"
 
-#, fuzzy
 msgid ""
 "Deleting a tab will remove all content within it and will deactivate any "
 "related alerts or reports. You may still reverse this action with the"
