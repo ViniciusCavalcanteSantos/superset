@@ -214,13 +214,15 @@ msgstr ""
 msgid "%(rows)d rows returned"
 msgstr "%(rows)d linhas retornadas"
 
-#, fuzzy, python-format
+#, python-format
 msgid "%(suggestion)s instead of \"%(undefinedParameter)s?\""
 msgid_plural ""
 "%(firstSuggestions)s or %(lastSuggestion)s instead of "
 "\"%(undefinedParameter)s\"?"
 msgstr[0] "%(suggestion)s em vez de \"%(undefinedParameter)s?\""
 msgstr[1] ""
+"%(firstSuggestions)s ou %(lastSuggestion)s em vez de "
+"\"%(undefinedParameter)s\"?"
 
 #, python-format
 msgid ""
@@ -292,7 +294,7 @@ msgstr "%s operador(es)"
 msgid "%s option"
 msgid_plural "%s options"
 msgstr[0] "%s opção"
-msgstr[1] ""
+msgstr[1] "%s opções"
 
 #, python-format
 msgid "%s option(s)"
@@ -302,11 +304,11 @@ msgstr "%s opção(ões)"
 msgid "%s recipients"
 msgstr "%s destinátarios"
 
-#, fuzzy, python-format
+#, python-format
 msgid "%s row"
 msgid_plural "%s rows"
 msgstr[0] "%s linha"
-msgstr[1] ""
+msgstr[1] "%s linhas"
 
 #, python-format
 msgid "%s saved metric(s)"
@@ -2491,11 +2493,11 @@ msgstr "Opções do Gráfico"
 msgid "Chart Orientation"
 msgstr "Orientação do Gráfico"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Chart Owner: %s"
 msgid_plural "Chart Owners: %s"
 msgstr[0] "Proprietário do gráfico: %s"
-msgstr[1] ""
+msgstr[1] "Proprietários do gráfico: %s"
 
 msgid "Chart Source"
 msgstr "Fonte do Gráfico"
@@ -4200,63 +4202,62 @@ msgstr "Excluir este contêiner e salvar para remover essa mensagem."
 msgid "Delete user"
 msgstr "Excluir consulta"
 
-#, fuzzy
 msgid "Deleted"
-msgstr "excluir"
+msgstr "excluído"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted %(num)d annotation"
 msgid_plural "Deleted %(num)d annotations"
-msgstr[0] "Anotação %(num)d excluída"
-msgstr[1] ""
+msgstr[0] "%(num)d anotação excluída"
+msgstr[1] "%(num)d anotações excluídas"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted %(num)d annotation layer"
 msgid_plural "Deleted %(num)d annotation layers"
-msgstr[0] "Camada de anotação %(num)d excluída"
-msgstr[1] ""
+msgstr[0] "%(num)d camada de anotação excluída"
+msgstr[1] "%(num)d camadas de anotação excluídas"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted %(num)d chart"
 msgid_plural "Deleted %(num)d charts"
-msgstr[0] "Gráfico %(num)d excluído"
-msgstr[1] ""
+msgstr[0] "%(num)d gráfico excluído"
+msgstr[1] "%(num)d gráficos excluídos"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted %(num)d css template"
 msgid_plural "Deleted %(num)d css templates"
-msgstr[0] "Modelo CSS %(num)d excluído"
-msgstr[1] ""
+msgstr[0] "%(num)d modelo CSS excluído"
+msgstr[1] "%(num)d modelos CSS excluídos"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted %(num)d dashboard"
 msgid_plural "Deleted %(num)d dashboards"
-msgstr[0] "Painel %(num)d excluído"
-msgstr[1] ""
+msgstr[0] "%(num)d painel excluído"
+msgstr[1] "%(num)d painéis excluído"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted %(num)d dataset"
 msgid_plural "Deleted %(num)d datasets"
-msgstr[0] "Conjunto de dados %(num)d excluído"
-msgstr[1] ""
+msgstr[0] "%(num)d conjunto de dados excluído"
+msgstr[1] "%(num)d conjuntos de dados excluídos"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted %(num)d report schedule"
 msgid_plural "Deleted %(num)d report schedules"
 msgstr[0] "%(num)d cronograma de relatório excluído"
-msgstr[1] ""
+msgstr[1] "%(num)d cronogramas de relatórios excluídos"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted %(num)d rules"
 msgid_plural "Deleted %(num)d rules"
-msgstr[0] "Gráfico %(num)d excluído"
-msgstr[1] ""
+msgstr[0] "%(num)d regra excluída"
+msgstr[1] "%(num)d regras excluídas"
 
-#, fuzzy, python-format
+#, python-format
 msgid "Deleted %(num)d saved query"
 msgid_plural "Deleted %(num)d saved queries"
-msgstr[0] "Excluída %(num)d consulta salva"
-msgstr[1] ""
+msgstr[0] "%(num)d consulta salva excluída"
+msgstr[1] "%(num)d consultas salvas excluídas"
 
 #, fuzzy, python-format
 msgid "Deleted %s"
@@ -7229,8 +7230,8 @@ msgstr "Modificado %s"
 #, python-format
 msgid "Modified 1 column in the virtual dataset"
 msgid_plural "Modified %s columns in the virtual dataset"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Modificou 1 coluna no conjunto de dados virtual"
+msgstr[1] "Modificou %s colunas no conjunto de dados virtual"
 
 msgid "Modified by"
 msgstr "Modificado por"
@@ -8387,11 +8388,10 @@ msgstr "Por favor digite a senha novamente."
 msgid "Please re-export your file and try importing again"
 msgstr "Por favor reexportar seu arquivo e tente importar novamente"
 
-#, fuzzy
 msgid "Please reach out to the Chart Owner for assistance."
 msgid_plural "Please reach out to the Chart Owners for assistance."
 msgstr[0] "Entre em contato com o proprietário do gráfico para obter ajuda."
-msgstr[1] ""
+msgstr[1] "Entre em contato com o proprietários do gráfico para obter ajuda."
 
 msgid "Please save your chart first, then try creating a new email report."
 msgstr ""
@@ -8865,8 +8865,8 @@ msgstr "Remover a pré-visualização da tabela"
 #, python-format
 msgid "Removed 1 column from the virtual dataset"
 msgid_plural "Removed %s columns from the virtual dataset"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Removeu 1 coluna do conjunto de dados virtual"
+msgstr[1] "Removeu %s colunas do conjunto de dados virtual"
 
 msgid "Rename tab"
 msgstr "Renomear Aba"
@@ -11455,11 +11455,11 @@ msgstr "O número de segundos antes da expiração da cache"
 msgid "The object does not exist in the given database."
 msgstr "O objeto não existe no banco de dados fornecido."
 
-#, fuzzy, python-format
+#, python-format
 msgid "The parameter %(parameters)s in your query is undefined."
 msgid_plural "The following parameters in your query are undefined: %(parameters)s."
 msgstr[0] "O parâmetro %(parameters)s em sua consulta é indefinido."
-msgstr[1] ""
+msgstr[1] "Os seguintes parâmetros em sua consulta são indefinidos: %(parameters)s."
 
 #, python-format
 msgid "The password provided for username \"%(username)s\" is incorrect."
@@ -12334,11 +12334,10 @@ msgstr "Esse tipo de visualização não oferece suporte à filtragem cruzada."
 msgid "This visualization type is not supported."
 msgstr "Não há suporte para esse tipo de visualização."
 
-#, fuzzy
 msgid "This was triggered by:"
 msgid_plural "This may be triggered by:"
 msgstr[0] "Isso foi desencadeado por:"
-msgstr[1] ""
+msgstr[1] "Isso pode ter siso desencadeado por:"
 
 msgid ""
 "This will be applied to the whole table. Arrows (↑ and ↓) will be added "
@@ -13512,7 +13511,7 @@ msgstr "Semanas %s"
 msgid "Weight"
 msgstr "Peso"
 
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "We’re having trouble loading these results. Queries are set to timeout "
 "after %s second."
@@ -13521,10 +13520,12 @@ msgid_plural ""
 "after %s seconds."
 msgstr[0] ""
 "Estamos tendo problemas para carregar esses resultados. As consultas "
-"estão definidas para atingir o tempo limite após %s segundos."
+"estão definidas para atingir o tempo limite após %s segundo."
 msgstr[1] ""
+"Estamos tendo problemas para carregar esses resultados. As consultas "
+"estão definidas para atingir o tempo limite após %s segundos."
 
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "We’re having trouble loading this visualization. Queries are set to "
 "timeout after %s second."
@@ -13533,8 +13534,10 @@ msgid_plural ""
 "timeout after %s seconds."
 msgstr[0] ""
 "Estamos tendo problemas para carregar essa visualização. As consultas "
-"estão definidas para atingir o tempo limite após %s segundos."
+"estão definidas para atingir o tempo limite após %s segundo."
 msgstr[1] ""
+"Estamos tendo problemas para carregar essa visualização. As consultas "
+"estão definidas para atingir o tempo limite após %s segundos."
 
 #, fuzzy
 msgid "What should be shown as the label"
