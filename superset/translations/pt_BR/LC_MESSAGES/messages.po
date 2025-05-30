@@ -140,6 +140,10 @@ msgstr ""
 "emos utilizar os padrões de acordo com cada nível do banco de dados/nome "
 "de coluna via parâmetro extra."
 
+
+msgid "Sign In"
+msgstr "Entrar"
+
 msgid " to add calculated columns"
 msgstr " para adicionar colunas calculadas"
 
@@ -1681,13 +1685,11 @@ msgstr ""
 "Qualquer paleta de cores selecionada aqui substituirá as cores aplicadas "
 "aos gráficos individuais deste painel"
 
-#, fuzzy
 msgid "Any databases that allow connections via SQL Alchemy URIs can be added. "
 msgstr ""
 "Podem ser adicionadas quaisquer bases de dados que permitam ligações "
 "através de URIs do SQL Alchemy."
 
-#, fuzzy
 msgid ""
 "Any databases that allow connections via SQL Alchemy URIs can be added. "
 "Learn about how to connect a database driver "
@@ -3877,7 +3879,6 @@ msgstr "Esquema do conjunto de dados inválido, causado por: %(error)s"
 msgid "Datasets"
 msgstr "Conjuntos de dados"
 
-#, fuzzy
 msgid ""
 "Datasets can be created from database tables or SQL queries. Select a "
 "database table to the left or "
@@ -6723,6 +6724,9 @@ msgstr "Codificação de linhas"
 msgid "Link Copied!"
 msgstr "Link copiado!"
 
+msgid "List Groups"
+msgstr "Lista de grupos"
+
 msgid "List Roles"
 msgstr "Lista de cargos"
 
@@ -7654,14 +7658,12 @@ msgstr "Não acionado"
 msgid "Not up to date"
 msgstr "Não atualizado"
 
-#, fuzzy
 msgid "Nothing here yet"
-msgstr "Nada foi acionado"
+msgstr "Nada aqui ainda"
 
 msgid "Nothing triggered"
 msgstr "Nada foi acionado"
 
-#, fuzzy
 msgid "Notification Method"
 msgstr "Método de notificação"
 
@@ -11038,9 +11040,8 @@ msgstr "A anotação foi salva"
 msgid "The annotation has been updated"
 msgstr "A anotação foi atualizada"
 
-#, fuzzy
 msgid "The background color of the charts."
-msgstr "Adicione o nome do gráfico"
+msgstr "A cor de fundo dos gráficos."
 
 msgid ""
 "The category of source nodes used to assign colors. If a node is "
@@ -12941,29 +12942,24 @@ msgstr "Carregar CSV"
 msgid "Upload CSV to database"
 msgstr "Carregar CSV para o banco de dados"
 
-#, fuzzy
 msgid "Upload Columnar"
-msgstr "Carregar arquivo colunar"
+msgstr "Carregar Colunar"
 
-#, fuzzy
 msgid "Upload Columnar file to database"
 msgstr "Carregar arquivo colunar no banco de dados"
 
 msgid "Upload Enabled"
 msgstr "Upload habilitado"
 
-#, fuzzy
 msgid "Upload Excel"
-msgstr "Carregar arquivo Excel"
+msgstr "Carregar Arquivo Excel"
 
-#, fuzzy
 msgid "Upload Excel to database"
 msgstr "Carregar arquivo do Excel para o banco de dados"
 
 msgid "Upload JSON file"
 msgstr "Carregar arquivo JSON"
 
-#, fuzzy
 msgid "Upload a file to a database."
 msgstr "Carregar arquivo no banco de dados"
 
@@ -12971,7 +12967,6 @@ msgstr "Carregar arquivo no banco de dados"
 msgid "Upload a file with a valid extension. Valid: [%s]"
 msgstr "Suba um arquivo com extensão válida. Válido: [%s]"
 
-#, fuzzy
 msgid "Upload credentials"
 msgstr "Carregar credenciais"
 
@@ -14703,13 +14698,11 @@ msgstr "em"
 msgid "in modal"
 msgstr "no modal"
 
-#, fuzzy
 msgid "invalid email"
-msgstr "Chave de permalink inválida"
+msgstr "Email inválido"
 
-#, fuzzy
 msgid "is"
-msgstr "em"
+msgstr "é"
 
 #, fuzzy
 msgid "is expected to be a Mapbox URL"
