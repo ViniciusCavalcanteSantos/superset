@@ -39,7 +39,7 @@ from flask_appbuilder import Model
 from flask_appbuilder.models.decorators import renders
 from flask_appbuilder.models.mixins import AuditMixin
 from flask_appbuilder.security.sqla.models import User
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as _, format_timedelta
 from jinja2.exceptions import TemplateError
 from markupsafe import escape, Markup
 from sqlalchemy import and_, Column, or_, UniqueConstraint
@@ -94,6 +94,7 @@ from superset.utils.core import (
     remove_duplicates,
 )
 from superset.utils.dates import datetime_to_epoch
+from babel.dates import format_timedelta as babel_format_timedelta
 
 if TYPE_CHECKING:
     from superset.connectors.sqla.models import SqlMetric, TableColumn
@@ -556,11 +557,17 @@ class AuditMixinNullable(AuditMixin):
 
     @property
     def changed_on_humanized(self) -> str:
-        return humanize.naturaltime(datetime.now() - self.changed_on)
+        if self.changed_on:
+            delta = self.changed_on - datetime.now()
+            return format_timedelta(delta, granularity='second', add_direction=True)
+        return ""
 
     @property
     def created_on_humanized(self) -> str:
-        return humanize.naturaltime(datetime.now() - self.created_on)
+        if self.created_on:
+            delta = self.created_on - datetime.now()
+            return format_timedelta(delta, granularity='second', add_direction=True)
+        return ""
 
     @renders("changed_on")
     def modified(self) -> Markup:
